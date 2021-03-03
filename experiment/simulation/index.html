@@ -7,6 +7,49 @@
 <body>
 		<!-- Your code goes here-->
 
+<div class="content" id="experiment-article-section-4-content">
+                            <pre>   Plaintext: <textarea cols="50" id="plaintext" name="plaintext" readonly="readonly" rows="4">1100000000111100101010</textarea>   <input name="changePlainText" onclick="next_plain_text()" type="button" value="Next Plaintext"/> <br/>
+      Key, k: <textarea cols="50" id="key" name="key" readonly="readonly" rows="1">11100100</textarea>   <input name="changeKey" onclick="next_key()" type="button" value="Next Key"/><br/>
+length of Initialization Vector (IV), l, <textarea cols="4" id="l" name="l" rows="1">4</textarea> where l &lt; (the length of plaintext above)/2 <br/>
+          IV: <textarea cols="50" id="iv" name="iv" readonly="readonly" rows="1">1100</textarea>   <input name="changeIV" onclick="next_IV()" type="button" value="Next IV"/><br/><br/><br/>
+Put your text of size l to get the corresponding value of F<sub>k</sub>(text) of size l.<br/>
+   Your text: <textarea cols="50" id="usertext" name="usertext" rows="1">11001010</textarea>   <input name="applyFunction" onclick="apply_function()" type="button" value="Apply Function"/>        <input name="nextFunction" onclick="next_function()" type="button" value="Choose another Function"/>
+Function output: <textarea cols="50" id="functionvalue" name="functionvalue" readonly="readonly" rows="1"></textarea><br/><br/>
+Final Output: <textarea cols="50" id="outputarea" name="output" rows="1"></textarea> <input name="checkAnswer" onclick="CheckAnswer()" type="button" value="Check Answer!"/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></pre>
+                            <p style="font-weight: bold; text-decoration: underline; font-style: italic; text-align: center;">SECOND PART OF THE EXPERIMENT</p>
+                            <br/>
+                            <pre></pre>
+                            <p>Select the option you would use to make CBC-MAC secure </p>
+                            <br/>
+                            <p>
+                                <select id="secureOptions" onchange="select();">
+                                    <option selected="selected" value="key">Compute and use your key</option>
+                                    <option value="length">Prepend the message with its length</option>
+                                    <option value="keys">Two keys</option>
+                                </select>
+                            </p>
+                            <pre>      Plaintext: <textarea cols="50" id="plaintext" name="plaintext" readonly="readonly" rows="4">1100000000111100101010</textarea>   <input name="changePlainText" onclick="next_plain_text()" type="button" value="Next Plaintext"/> <br/>
+   <div id="user_message" style="color: red;">
+ Your Plaintext: <textarea cols="50" id="plaintext" name="plaintext" rows="4"></textarea> <br/>
+    <br/></div>
+            Key: <textarea cols="50" id="key" name="key" readonly="readonly" rows="1">11100100</textarea>   <input name="changeKey" onclick="next_key()" type="button" value="Another Key"/><br/>
+	<div id="userKey" style="color: red;">
+ Calculated Key: <textarea cols="50" id="key" name="key" rows="1"></textarea> <br/> <br/></div>
+	<div id="key_generated2" style="color: red;">
+     Second Key: <textarea cols="50" id="key2" name="key2" readonly="readonly" rows="1">11100100</textarea>   <input onclick="next_key2()" type="button" value="Another Key"/><br/> <br/></div>
+
+length of Initialization Vector (IV), l, <textarea cols="4" id="l" name="l" rows="1">4</textarea> where l &lt; (the length of plaintext above)/2 <br/>
+             IV: <textarea cols="50" id="iv" name="iv" readonly="readonly" rows="1">1100</textarea>   <input name="changeIV" onclick="next_IV()" type="button" value="Next IV"/><br/><br/><br/>
+Put your text of size l to get the corresponding value of F<sub>k</sub>(text) of size l.<br/>
+      Your text: <textarea cols="50" id="usertext" name="usertext" rows="1">11001010</textarea>   <input name="applyFunction" onclick="apply_function()" type="button" value="Apply Function"/>
+                                <input name="nextFunction" onclick="next_function()" type="button" value="Next Function"/>
+Function output: <textarea cols="50" id="functionvalue" name="functionvalue" readonly="readonly" rows="1"></textarea><br/><br/>
+   Final Output: <textarea cols="50" id="outputarea" name="output" rows="1"></textarea>
+
+                <br/>
+                        </div>
+		
 	<!-- Add JS at the bottom of HTML file --> 
         <script src="./js/main.js"></script>
 </body>
