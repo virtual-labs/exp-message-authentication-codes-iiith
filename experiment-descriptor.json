@@ -35,25 +35,11 @@
       "content-type": "simulation"
     },
     {
-      "target": "observations.html",
-      "source": "observations.md",
-      "label": "Observations",
-      "unit-type": "task",
-      "content-type": "text"
-    },
-{
       "target": "assignment.html",
       "source": "assignment.md",
       "label": "Assignment",
       "unit-type": "task",
       "content-type": "text"
-    },
-    {
-      "target": "posttest.html",
-      "source": "posttest.json",
-      "label": "Posttest",
-      "unit-type": "task",
-      "content-type": "assesment"
     },
     {
       "target": "references.html",
