@@ -1,18 +1,29 @@
 [
-{"question":"This is a Sample Question 1?",
+{"question":"If a MAC tag is K-bits long, how much work is needed to find a collision to that specific value.",
 "answers":{
-            "a":"answer1",
-            "b":"answer2",
-            "c":"answer3",
-            "d":"answer4"
+            "a":"$$ 2^{k/2} $$",
+            "b":"$$ K^2$$",
+            "c":"K!",
+            "d":"$$ K^K$$"
           },
 "correctAnswer":"a"},
-{"question":"This is a Sample Question 2?",
+
+{"question":"The out put length of SHA – I is _____________ bits",
 "answers":{
-            "a":"answer1",
-            "b":"answer2",
-            "c":"answer3",
-            "d":"answer4"
+            "a":"128",
+            "b":"16",
+            "c":"64",
+            "d":"256"
           },
-"correctAnswer":"c"} 
+"correctAnswer":"c"}, 
+
+{"question":"Best way to achieve both privacy and message integrity",
+"answers":{
+            "a":"Encrypt and Authenticate",
+            "b":"Authenticate then Encrypt",
+            "c":"Encrypt then Authenticate",
+            "d":"All"
+          },
+"correctAnswer":"c"}
+
 ]
