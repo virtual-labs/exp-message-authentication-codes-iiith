@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "title": "CBC-MAC Learning Dataset",
+    "description": "Predefined examples for structured learning with step-by-step verification",
+    "version": "1.0",
+    "lastUpdated": "2025-08-07"
+  },
+  "examples": [
+    {
+      "id": 1,
+      "level": "Basic",
+      "description": "Simple 2-block message",
+      "plaintext": "11000000",
+      "key": "1010",
+      "iv": "10",
+      "blockSize": 2,
+      "steps": [
+        {
+          "step": 1,
+          "description": "Block 1: XOR plaintext[0-1] with IV",
+          "calculation": "11 ⊕ 10 = 01",
+          "input": "11",
+          "operation": "XOR with IV (10)",
+          "expected": "01"
+        },
+        {
+          "step": 2,
+          "description": "Apply function F_k to result",
+          "calculation": "F_k(01) = 11",
+          "input": "01",
+          "operation": "Apply F_k",
+          "expected": "11"
+        },
+        {
+          "step": 3,
+          "description": "Block 2: XOR plaintext[2-3] with previous result",
+          "calculation": "00 ⊕ 11 = 11",
+          "input": "00",
+          "operation": "XOR with previous (11)",
+          "expected": "11"
+        },
+        {
+          "step": 4,
+          "description": "Apply function F_k to get final MAC",
+          "calculation": "F_k(11) = 10",
+          "input": "11",
+          "operation": "Apply F_k",
+          "expected": "10"
+        }
+      ],
+      "finalMAC": "10",
+      "learningPoints": [
+        "CBC-MAC processes data in blocks",
+        "Each block depends on the previous result",
+        "The IV initializes the first operation"
+      ]
+    },
+    {
+      "id": 2,
+      "level": "Intermediate",
+      "description": "3-block message with different key size",
+      "plaintext": "110010001111",
+      "key": "101011",
+      "iv": "1001",
+      "blockSize": 4,
+      "steps": [
+        {
+          "step": 1,
+          "description": "Block 1: XOR plaintext[0-3] with IV",
+          "calculation": "1100 ⊕ 1001 = 0101",
+          "input": "1100",
+          "operation": "XOR with IV (1001)",
+          "expected": "0101"
+        },
+        {
+          "step": 2,
+          "description": "Apply function F_k to result (key resized to block size)",
+          "calculation": "F_k(0101) with key 1010 = 1111",
+          "input": "0101",
+          "operation": "Apply F_k with resized key (1010)",
+          "expected": "1111"
+        },
+        {
+          "step": 3,
+          "description": "Block 2: XOR plaintext[4-7] with previous result",
+          "calculation": "1000 ⊕ 1111 = 0111",
+          "input": "1000",
+          "operation": "XOR with previous (1111)",
+          "expected": "0111"
+        },
+        {
+          "step": 4,
+          "description": "Apply function F_k to result",
+          "calculation": "F_k(0111) = 1000",
+          "input": "0111",
+          "operation": "Apply F_k",
+          "expected": "1000"
+        },
+        {
+          "step": 5,
+          "description": "Block 3: XOR plaintext[8-11] with previous result",
+          "calculation": "1111 ⊕ 1000 = 0111",
+          "input": "1111",
+          "operation": "XOR with previous (1000)",
+          "expected": "0111"
+        },
+        {
+          "step": 6,
+          "description": "Apply function F_k to get final MAC",
+          "calculation": "F_k(0111) = 1000",
+          "input": "0111",
+          "operation": "Apply F_k",
+          "expected": "1000"
+        }
+      ],
+      "finalMAC": "1000",
+      "learningPoints": [
+        "Key size can be different from block size",
+        "Key is resized (truncated/extended) to match block size",
+        "More blocks = more intermediate steps to verify"
+      ]
+    },
+    {
+      "id": 3,
+      "level": "Advanced",
+      "description": "Edge case: Single block message",
+      "plaintext": "1010",
+      "key": "11001100",
+      "iv": "0011",
+      "blockSize": 4,
+      "steps": [
+        {
+          "step": 1,
+          "description": "Single Block: XOR plaintext with IV",
+          "calculation": "1010 ⊕ 0011 = 1001",
+          "input": "1010",
+          "operation": "XOR with IV (0011)",
+          "expected": "1001"
+        },
+        {
+          "step": 2,
+          "description": "Apply function F_k with truncated key",
+          "calculation": "F_k(1001) with key 1100 = 0101",
+          "input": "1001",
+          "operation": "Apply F_k with truncated key (1100)",
+          "expected": "0101"
+        }
+      ],
+      "finalMAC": "0101",
+      "learningPoints": [
+        "Single block messages are simpler",
+        "Key truncation when key > block size",
+        "IV is still essential even for single blocks"
+      ]
+    },
+    {
+      "id": 4,
+      "level": "Complex",
+      "description": "Longer message with padding",
+      "plaintext": "110100111010011",
+      "key": "101",
+      "iv": "1100",
+      "blockSize": 4,
+      "steps": [
+        {
+          "step": 1,
+          "description": "Pad message to block boundary",
+          "calculation": "11010011101001 + 1 (padding) = 1101001110100110",
+          "input": "110100111010011",
+          "operation": "Add padding bit",
+          "expected": "1101001110100110"
+        },
+        {
+          "step": 2,
+          "description": "Block 1: XOR first block with IV",
+          "calculation": "1101 ⊕ 1100 = 0001",
+          "input": "1101",
+          "operation": "XOR with IV (1100)",
+          "expected": "0001"
+        },
+        {
+          "step": 3,
+          "description": "Apply F_k with extended key",
+          "calculation": "F_k(0001) with key 1011 = 1010",
+          "input": "0001",
+          "operation": "Apply F_k with extended key (1011)",
+          "expected": "1010"
+        }
+      ],
+      "finalMAC": "1010",
+      "learningPoints": [
+        "Padding is needed for incomplete blocks",
+        "Key extension when key < block size",
+        "Padding affects the final result"
+      ]
+    }
+  ]
+}
