@@ -1,75 +1,86 @@
 ### **Part 1: Basic CBC-MAC Implementation**
 
-**STEP 1:** **Familiarize yourself with the simulation interface**
+**STEP 1:** **Choose your learning approach**
 
-- **Learning Mode**: Choose from 4 examples (Basic, Intermediate, Advanced, Complex)
-- **Free-Form Mode**: Generate random values and experiment freely
-- Each mode provides guided learning with step-by-step explanations
+- **Dataset Examples**: Select from 4 pre-designed examples:
+  - **Example 1: Basic** - Simple 2-block message for beginners
+  - **Example 2: Intermediate** - 3-block message with step-by-step guidance
+  - **Example 3: Advanced** - Complex multi-block scenario
+  - **Example 4: Complex** - Challenging real-world example
+- **Random Mode**: Click "Random Values" to generate random parameters for practice
+- **Navigation**: Use "Previous Example" and "Next Example" to move between cases
 
-**STEP 2:** **Set up the basic parameters**
+**STEP 2:** **Examine the CBC-MAC parameters**
 
-- **Plaintext**: Use provided examples or click "Next Plaintext" for random text
-- **Key**: Use provided key or click "Next Key" for a random key
-- **IV Length (l)**: Set length where l < (plaintext length)/2
-- **IV**: Use provided IV or click "Next IV" for random initialization vector
+- **Plaintext**: View the provided binary message (automatically loaded from selected example)
+- **Key (k)**: Observe the cryptographic key (click "Next Key" for random key in free mode)
+- **IV Length (l)**: Note the initialization vector length (where l < plaintext length/2)
+- **IV**: Study the initialization vector (click "Next IV" for random IV in free mode)
 
-**STEP 3:** **Test the cryptographic function F_k**
+**STEP 3:** **Test and understand the cryptographic function F_k**
 
 - **Enter binary text** of the required length in the "Your text" field
-- **Click "Apply Function"** to see how F_k transforms your input
-- **Observe the calculation details** showing step-by-step XOR/EQV operations
-- **Click "Generate New Function"** to experiment with different function patterns
+- **Click "Apply Function"** to see how F_k transforms your input using XOR/EQV operations
+- **Study the detailed calculation** showing step-by-step bit operations
+- **Experiment**: Click "Generate New Function" to try different function patterns
+- **Observe the function display** showing the current F_k pattern
 
-**STEP 4:** **Calculate the CBC-MAC step by step**
+**STEP 4:** **Follow the CBC-MAC algorithm step by step**
 
-- **Follow the algorithm**: XOR each plaintext block with the previous result (starting with IV)
-- **Apply F_k function** to get the next intermediate value
-- **Continue the process** until all blocks are processed
-- **Use the learning examples** for guided practice with expected results
+- **Understand the process**: CBC-MAC XORs each plaintext block with the previous result
+- **Start with IV**: The first block is XORed with the initialization vector
+- **Apply F_k function**: Each XOR result is processed through the cryptographic function
+- **Continue iteratively**: Use each F_k output as input for the next block's XOR operation
+- **Final result**: The last F_k output is your CBC-MAC
 
-**STEP 5:** **Enter your final result and verify**
+**STEP 5:** **Verify your calculation**
 
-- **Input your calculated MAC** in the "Final Output" field
-- **Click "Check Answer!"** to validate your result using the dataset examples
-- **Click "Check (Original)"** for algorithmic verification without examples
-- **Review feedback** and correct any mistakes with provided explanations
+- **Enter your result** in the "Final Output" field
+- **Check with dataset**: Click "Check Answer!" to validate against the loaded example
+- **Alternative check**: Click "Check (Original)" for direct algorithmic verification
+- **Learn from feedback**: Review detailed explanations and corrections if needed
+- **Progress tracking**: Successfully completed examples auto-advance to the next case
 
 ### **Part 2: Secure CBC-MAC Implementation**
 
-**STEP 6:** **Proceed to secure CBC-MAC section**
+**STEP 6:** **Learn about CBC-MAC security vulnerabilities**
 
-- **Understand the security risks** of basic CBC-MAC for variable-length messages
-- **Learn about countermeasures** against length extension attacks
+- **Understand the risks**: Basic CBC-MAC is vulnerable to length extension attacks
+- **Review attack scenarios**: Variable-length messages can be manipulated by attackers
+- **Explore countermeasures**: Different methods to make CBC-MAC secure
 
 **STEP 7:** **Select a security enhancement method**
 
-Choose from the dropdown menu:
+Choose from the dropdown menu to explore different security approaches:
 
-- **Compute and use your key**: Manual key derivation approach
-- **Prepend the message with its length**: Length extension attack prevention
-- **Two keys**: Enhanced security using dual-key construction
+- **Compute and use your key**: Manual key derivation and modification approach
+- **Prepend the message with its length**: Length-prefixing to prevent extension attacks
+- **Two keys**: Enhanced dual-key construction for increased security
 
-**STEP 8:** **Set up secure parameters**
+**STEP 8:** **Set up secure CBC-MAC parameters**
 
-- **Plaintext**: Click "Next Plaintext" for random secure examples
-- **Key**: Click "Next Key" for appropriate key generation
-- **IV Length and IV**: Set parameters following the same rules as Part 1
+- **Plaintext**: Click "Next Plaintext" to generate examples for secure analysis
+- **Key**: Use "Next Key" to generate appropriate keys for your chosen security method
+- **IV Length and IV**: Configure parameters following the same constraints as Part 1
+- **Observe differences**: Note how security method affects parameter handling
 
-**STEP 9:** **Test the secure function F_k**
+**STEP 9:** **Test the secure cryptographic function F_k**
 
-- **Use the same testing interface** as Part 1 with enhanced security features
-- **Click "Apply Function"** to see secure function transformations
-- **Click "Generate New Function"** to experiment with secure function patterns
-- **Observe enhanced calculation details** specific to secure CBC-MAC
+- **Use enhanced interface**: Same testing approach as Part 1 but with security modifications
+- **Apply secure function**: Click "Apply Function" to see secure transformations
+- **Generate variations**: Use "Generate New Function" for secure function patterns
+- **Study secure calculations**: Observe how security measures affect the function output
 
 **STEP 10:** **Calculate secure CBC-MAC**
 
-- **Follow the enhanced algorithm** based on your chosen security method
-- **Apply security measures** (length prefixing, key derivation, etc.)
-- **Complete the calculation** using the secure construction
+- **Follow enhanced algorithm**: Apply your chosen security method to the CBC-MAC process
+- **Implement security measures**: Use length prefixing, key derivation, or dual keys as selected
+- **Process systematically**: Complete the calculation using the secure construction
+- **Validate each step**: Ensure security measures are properly applied
 
 **STEP 11:** **Verify your secure implementation**
 
-- **Enter your result** in the secure CBC-MAC output field
-- **Click "Check Secure CBC-MAC!"** to validate your security approach
-- **Compare results** between basic and secure implementations
+- **Enter final result**: Input your calculated secure CBC-MAC in the output field
+- **Click "Check Secure CBC-MAC!"**: Validate your security-enhanced result
+- **Compare implementations**: Understand differences between basic and secure approaches
+- **Learn from feedback**: Review explanations of security measures and their effectiveness

@@ -991,3 +991,133 @@ function addFunctionOutputExplanationSecure() {
     }
   }
 }
+
+// =============================================================================
+// ANSWER CHECKING FUNCTIONS
+// =============================================================================
+
+function CheckSecureAnswer() {
+  var userAnswer = document.getElementById("outputarea2").value.trim();
+  var notification = document.getElementById("notification2");
+
+  if (!notification) {
+    notification = document.createElement("div");
+    notification.id = "notification2";
+    notification.style.cssText =
+      "padding: 10px; margin: 10px 0; font-weight: bold; border-radius: 5px; text-align: center;";
+
+    // Find the notification div that should already exist in HTML
+    var existingNotification = document.getElementById("notification2");
+    if (existingNotification) {
+      notification = existingNotification;
+    }
+  }
+
+  // Check if user provided an answer
+  if (!userAnswer) {
+    notification.innerHTML =
+      "⚠️ Please enter your calculated CBC-MAC result in the Final Output field.";
+    notification.style.backgroundColor = "#fff3cd";
+    notification.style.color = "#856404";
+    notification.style.border = "1px solid #ffeaa7";
+    return;
+  }
+
+  // Validate that the answer is binary
+  if (!validate_binary(userAnswer)) {
+    notification.innerHTML = "❌ Please enter only binary digits (0 and 1).";
+    notification.style.backgroundColor = "#f8d7da";
+    notification.style.color = "#721c24";
+    notification.style.border = "1px solid #f5c6cb";
+    return;
+  }
+
+  // Calculate the correct CBC-MAC
+  try {
+    var plaintext = document.getElementById("plaintext2").value;
+    var key = document.getElementById("key2").value;
+    var iv = document.getElementById("iv2").value;
+    var l = document.getElementById("l2").value;
+
+    if (!plaintext || !key || !iv || !l) {
+      notification.innerHTML =
+        "⚠️ Please ensure all parameters (plaintext, key, IV, l) are set before checking your answer.";
+      notification.style.backgroundColor = "#fff3cd";
+      notification.style.color = "#856404";
+      notification.style.border = "1px solid #ffeaa7";
+      return;
+    }
+
+    // Calculate correct CBC-MAC for secure version
+    var correctMAC = calculateSecureCBCMAC(plaintext, key, iv, parseInt(l));
+
+    if (userAnswer === correctMAC) {
+      notification.innerHTML =
+        "✅ Good choice! You selected: keys method for secure CBC-MAC. This helps prevent length extension and other attacks.";
+      notification.style.backgroundColor = "#d4edda";
+      notification.style.color = "#155724";
+      notification.style.border = "1px solid #c3e6cb";
+    } else {
+      notification.innerHTML = `❌ Incorrect. Your answer: ${userAnswer}<br>Correct CBC-MAC: ${correctMAC}<br>💡 Tip: Follow the secure CBC-MAC algorithm step by step using the given parameters.`;
+      notification.style.backgroundColor = "#f8d7da";
+      notification.style.color = "#721c24";
+      notification.style.border = "1px solid #f5c6cb";
+    }
+  } catch (error) {
+    notification.innerHTML =
+      "❌ Error calculating CBC-MAC. Please check your parameters and try again.";
+    notification.style.backgroundColor = "#f8d7da";
+    notification.style.color = "#721c24";
+    notification.style.border = "1px solid #f5c6cb";
+    console.error("CBC-MAC calculation error:", error);
+  }
+}
+
+function calculateSecureCBCMAC(plaintext, key, iv, l) {
+  // Implement secure CBC-MAC calculation
+  // This is a simplified educational version
+
+  // Pad the plaintext to a multiple of l
+  var paddedText = pad_input(plaintext);
+
+  // Resize key to match block size
+  var resizedKey = resize_key(key, l);
+
+  // Initialize with IV
+  var previousBlock = iv;
+
+  // Process each block
+  var blocks = [];
+  for (var i = 0; i < paddedText.length; i += l) {
+    blocks.push(paddedText.substring(i, i + l));
+  }
+
+  for (var i = 0; i < blocks.length; i++) {
+    var currentBlock = blocks[i];
+
+    // XOR with previous block (or IV for first block)
+    var xorResult = xor_strings(currentBlock, previousBlock);
+
+    // Apply the cryptographic function
+    var functionResult = function_value(xorResult, resizedKey);
+
+    previousBlock = functionResult;
+  }
+
+  // For secure CBC-MAC, apply the function one more time with a different key
+  // In this educational version, we'll use a modified key
+  var secureKey = modifyKeyForSecurity(resizedKey);
+  var finalMAC = function_value(previousBlock, secureKey);
+
+  return finalMAC;
+}
+
+function modifyKeyForSecurity(key) {
+  // Simple key modification for educational secure CBC-MAC
+  // In practice, this would be a more sophisticated key derivation
+  var modifiedKey = "";
+  for (var i = 0; i < key.length; i++) {
+    modifiedKey += key.charAt(i) === "0" ? "1" : "0"; // Simple bit flip
+  }
+  return modifiedKey;
+}
