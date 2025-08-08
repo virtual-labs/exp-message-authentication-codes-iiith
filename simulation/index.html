@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Add CSS at the head of HTML file -->
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <!-- Your code goes here-->
+
+    <div class="content" id="experiment-article-section-4-content">
+      <!-- Example Selection Controls -->
+      <div
+        style="
+          background: #f0f8ff;
+          padding: 15px;
+          border-radius: 8px;
+          margin: 15px 0;
+          border: 2px solid #4a90e2;
+        "
+      >
+        <h3>📚 CBC-MAC Learning Examples</h3>
+        <p>
+          Choose from carefully crafted examples to understand CBC-MAC step by
+          step:
+        </p>
+        <div style="margin: 10px 0">
+          <button
+            onclick="loadDatasetExample(0)"
+            style="
+              background: #28a745;
+              color: white;
+              border: none;
+              padding: 10px 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              margin: 5px;
+            "
+          >
+            Example 1: Basic
+          </button>
+          <button
+            onclick="loadDatasetExample(1)"
+            style="
+              background: #fd7e14;
+              color: white;
+              border: none;
+              padding: 10px 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              margin: 5px;
+            "
+          >
+            Example 2: Intermediate
+          </button>
+          <button
+            onclick="loadDatasetExample(2)"
+            style="
+              background: #dc3545;
+              color: white;
+              border: none;
+              padding: 10px 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              margin: 5px;
+            "
+          >
+            Example 3: Advanced
+          </button>
+          <button
+            onclick="loadDatasetExample(3)"
+            style="
+              background: #6f42c1;
+              color: white;
+              border: none;
+              padding: 10px 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              margin: 5px;
+            "
+          >
+            Example 4: Complex
+          </button>
+        </div>
+        <div style="margin-top: 10px">
+          <button
+            onclick="prevExample()"
+            style="
+              background: #6c757d;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          >
+            ← Previous Example
+          </button>
+          <button
+            onclick="nextExample()"
+            style="
+              background: #6c757d;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+              cursor: pointer;
+              margin-left: 8px;
+            "
+          >
+            Next Example →
+          </button>
+          <span style="margin-left: 15px; color: #666"
+            >Or use random values:</span
+          >
+          <button
+            onclick="next_plain_text()"
+            style="
+              background: #17a2b8;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+              cursor: pointer;
+              margin-left: 8px;
+            "
+          >
+            Random Values
+          </button>
+        </div>
+      </div>
+
+      <h3>Part 1: Basic CBC-MAC</h3>
+      <div
+        style="
+          background: #f8f9fa;
+          padding: 15px;
+          border-radius: 8px;
+          margin: 15px 0;
+        "
+      >
+        <table style="width: 100%">
+          <tr>
+            <td><strong>Plaintext:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="plaintext"
+                name="plaintext"
+                readonly="readonly"
+                rows="2"
+              >
+1100000000111100101010</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="changePlainText"
+                onclick="next_plain_text()"
+                type="button"
+                value="Next Plaintext"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Key (k):</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="key"
+                name="key"
+                readonly="readonly"
+                rows="1"
+              >
+11100100</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="changeKey"
+                onclick="next_key()"
+                type="button"
+                value="Next Key"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><strong>IV Length (l):</strong></td>
+            <td>
+              <textarea cols="4" id="l" name="l" rows="1">4</textarea> (where l
+              &lt; plaintext length/2)
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>IV:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="iv"
+                name="iv"
+                readonly="readonly"
+                rows="1"
+              >
+1100</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="changeIV"
+                onclick="next_IV()"
+                type="button"
+                value="Next IV"
+              />
+            </td>
+          </tr>
+        </table>
+
+        <br />
+        <div
+          style="
+            background: #f0f8ff;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            margin: 10px 0;
+          "
+        >
+          <p><strong>🧪 Test Function F<sub>k</sub>(text):</strong></p>
+          <p style="font-size: 14px; color: #666; margin: 5px 0">
+            This section allows you to test how the cryptographic function F<sub
+              >k</sub
+            >
+            transforms binary input. Enter binary text of the required length
+            and see the step-by-step calculation.
+          </p>
+        </div>
+        <table style="width: 100%">
+          <tr>
+            <td>
+              <strong>Your text:</strong><br /><small
+                >(Binary string of size
+                <span id="required-length">2</span>)</small
+              >
+            </td>
+            <td>
+              <textarea
+                cols="50"
+                id="usertext"
+                name="usertext"
+                rows="1"
+                placeholder="Enter binary digits (0s and 1s only)"
+              >
+11001010</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="applyFunction"
+                onclick="apply_function()"
+                type="button"
+                value="Apply Function"
+                style="background: #28a745"
+              />
+            </td>
+            <td>
+              <input
+                name="nextFunction"
+                onclick="next_function()"
+                type="button"
+                value="Generate New Function"
+                style="background: #fd7e14"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Function output:</strong><br /><small
+                >(F<sub>k</sub> result)</small
+              >
+            </td>
+            <td>
+              <textarea
+                cols="50"
+                id="functionvalue"
+                name="functionvalue"
+                readonly="readonly"
+                rows="1"
+                placeholder="Result will appear here after applying function"
+              ></textarea>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+        <br />
+        <table style="width: 100%">
+          <tr>
+            <td><strong>Final Output:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="outputarea"
+                name="output"
+                rows="1"
+              ></textarea>
+            </td>
+            <td>
+              <input
+                name="checkAnswer"
+                onclick="CheckAnswerWithDataset()"
+                type="button"
+                value="Check Answer!"
+              />
+              <input
+                name="checkOriginal"
+                onclick="CheckAnswer()"
+                type="button"
+                value="Check (Original)"
+                style="background: #6c757d; margin-left: 5px"
+              />
+            </td>
+          </tr>
+        </table>
+
+        <div
+          id="notification"
+          style="
+            padding: 10px;
+            margin: 10px 0;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+          "
+        ></div>
+      </div>
+
+      <hr />
+      <h3>Part 2: Secure CBC-MAC</h3>
+      <div
+        style="
+          background: #fff3cd;
+          padding: 15px;
+          border-radius: 8px;
+          margin: 15px 0;
+        "
+      >
+        <p>
+          <strong
+            >Select the option you would use to make CBC-MAC secure:</strong
+          >
+        </p>
+        <select id="secureOptions" onchange="select();">
+          <option selected="selected" value="key">
+            Compute and use your key
+          </option>
+          <option value="length">Prepend the message with its length</option>
+          <option value="keys">Two keys</option>
+        </select>
+
+        <br /><br />
+        <table style="width: 100%">
+          <tr>
+            <td><strong>Plaintext:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="plaintext2"
+                name="plaintext2"
+                readonly="readonly"
+                rows="2"
+              >
+1100000000111100101010</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="changePlainText2"
+                onclick="next_plain_text_secure()"
+                type="button"
+                value="Next Plaintext"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Key:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="key2"
+                name="key2"
+                readonly="readonly"
+                rows="1"
+              >
+11100100</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="changeKey2"
+                onclick="next_key_secure()"
+                type="button"
+                value="Next Key"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><strong>IV Length (l):</strong></td>
+            <td>
+              <textarea cols="4" id="l2" name="l2" rows="1">4</textarea> (where
+              l &lt; plaintext length/2)
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>IV:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="iv2"
+                name="iv2"
+                readonly="readonly"
+                rows="1"
+              >
+1100</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="changeIV2"
+                onclick="next_IV_secure()"
+                type="button"
+                value="Next IV"
+              />
+            </td>
+          </tr>
+        </table>
+
+        <div id="user_message" style="color: red; display: none">
+          <strong>Your Plaintext:</strong>
+          <textarea
+            cols="50"
+            id="userPlaintext"
+            name="userPlaintext"
+            rows="2"
+          ></textarea
+          ><br />
+        </div>
+
+        <div id="userKey" style="color: red; display: none">
+          <strong>Calculated Key:</strong>
+          <textarea
+            cols="50"
+            id="calculatedKey"
+            name="calculatedKey"
+            rows="1"
+          ></textarea
+          ><br />
+        </div>
+
+        <div id="key_generated2" style="color: red; display: none">
+          <strong>Second Key:</strong>
+          <textarea
+            cols="50"
+            id="secondKey"
+            name="secondKey"
+            readonly="readonly"
+            rows="1"
+          >
+11100100</textarea
+          >
+          <input onclick="next_key2()" type="button" value="Next Key" /><br />
+        </div>
+
+        <br />
+        <div
+          style="
+            background: #f0f8ff;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            margin: 10px 0;
+          "
+        >
+          <p>
+            <strong
+              >🧪 Test Function F<sub>k</sub>(text) - Secure CBC-MAC:</strong
+            >
+          </p>
+          <p style="font-size: 14px; color: #666; margin: 5px 0">
+            This section allows you to test how the cryptographic function F<sub
+              >k</sub
+            >
+            transforms binary input in the secure CBC-MAC implementation. Enter
+            binary text of the required length and see the step-by-step
+            calculation.
+          </p>
+        </div>
+        <table style="width: 100%">
+          <tr>
+            <td>
+              <strong>Your text:</strong><br /><small
+                >(Binary string of size
+                <span id="required-length-secure">4</span>)</small
+              >
+            </td>
+            <td>
+              <textarea
+                cols="50"
+                id="usertext2"
+                name="usertext2"
+                rows="1"
+                placeholder="Enter binary digits (0s and 1s only)"
+              >
+11001010</textarea
+              >
+            </td>
+            <td>
+              <input
+                name="applyFunction2"
+                onclick="apply_function_secure()"
+                type="button"
+                value="Apply Function"
+                style="background: #28a745"
+              />
+            </td>
+            <td>
+              <input
+                name="nextFunction2"
+                onclick="next_function_secure()"
+                type="button"
+                value="Generate New Function"
+                style="background: #fd7e14"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Function output:</strong><br /><small
+                >(F<sub>k</sub> result)</small
+              >
+            </td>
+            <td>
+              <textarea
+                cols="50"
+                id="functionvalue2"
+                name="functionvalue2"
+                readonly="readonly"
+                rows="1"
+                placeholder="Result will appear here after applying function"
+              ></textarea>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+        <br />
+        <table style="width: 100%">
+          <tr>
+            <td><strong>Final Output:</strong></td>
+            <td>
+              <textarea
+                cols="50"
+                id="outputarea2"
+                name="output2"
+                rows="1"
+              ></textarea>
+            </td>
+            <td>
+              <input
+                name="checkAnswer2"
+                onclick="CheckSecureAnswer()"
+                type="button"
+                value="Check Secure CBC-MAC!"
+              />
+            </td>
+          </tr>
+        </table>
+
+        <div
+          id="notification2"
+          style="
+            padding: 10px;
+            margin: 10px 0;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <!-- Add JS at the bottom of HTML file -->
+    <script src="js/mobile-detection.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+  <script src="../assets/js/iframeResize.js"></script>
+        
+        </body>
+</html>

@@ -1,0 +1,11 @@
+
+/home/runner/work/exp-message-authentication-codes-iiith/exp-message-authentication-codes-iiith/experiment/simulation/js/main.js
+  999:10  error  Parsing error: Identifier 'CheckSecureAnswer' has already been declared
+
+/home/runner/work/exp-message-authentication-codes-iiith/exp-message-authentication-codes-iiith/experiment/simulation/js/mobile-detection.js
+  426:7   warning  'mobileDetection' is assigned a value but never used  no-unused-vars
+  429:38  warning  'module' is not defined                               no-undef
+  430:3   warning  'module' is not defined                               no-undef
+
+✖ 4 problems (1 error, 3 warnings)
+
