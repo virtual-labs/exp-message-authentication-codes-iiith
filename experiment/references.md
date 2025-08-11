@@ -1,3 +1,3 @@
-- [Wikipedia](https://en.wikipedia.org/wiki/CBC-MAC)
-- Introduction to Modern Cryptography by Jonathan Katz and Yehuda Lindell.
-
+- [CBC-MAC - Wikipedia](https://en.wikipedia.org/wiki/CBC-MAC)
+- [Message Authentication Code - Wikipedia](https://en.wikipedia.org/wiki/Message_authentication_code)
+- [NIST Special Publication 800-38B: Recommendation for Block Cipher Modes of Operation: The CMAC Mode for Authentication](https://csrc.nist.gov/publications/detail/sp/800-38b/final)
